@@ -25,11 +25,16 @@ A simplistic network that turns scribbles to mask. It supports multi-object segm
 
 The package versions shown here are the ones that I used. You might not need the exact versions.
 
-- PyTorch (1.6.0)
-- opencv-contrib (4.2.0)
+- PyTorch `1.6.0`
+- torchvision `0.7.0`
+- opencv-contrib `4.2.0`
 - davis-interactive (<https://github.com/albertomontesg/davis-interactive>)
-- gitpython for training (`pip install gitpython`)
-- gdown for downloading pretrained models (`pip install gdown`)
+- gitpython for training
+- gdown for downloading pretrained models
+
+Refer to the official [PyTorch guide](<https://pytorch.org/>) for installing PyTorch/torchvision. The rest can be installed by:
+
+`pip install opencv-contrib-python gitpython gdown`
 
 ## Pretrained model
 
