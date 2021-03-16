@@ -2,7 +2,7 @@
 
 [Ho Kei Cheng](https://hkchengrex.github.io/), Yu-Wing Tai, Chi-Keung Tang
 
-[[Paper]] ((Soon!)) [[Project Page]](https://hkchengrex.github.io/MiVOS/)
+[[arXiv]](https://arxiv.org/abs/2103.07941) [[Paper PDF]](https://arxiv.org/pdf/2103.07941.pdf) [[Project Page]](https://hkchengrex.github.io/MiVOS/)
 
 A simplistic network that turns scribbles to mask. It supports multi-object segmentation using soft-aggregation. Don't expect SOTA results from this model!
 
