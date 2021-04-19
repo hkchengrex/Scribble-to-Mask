@@ -80,7 +80,7 @@ The model almost always needs to focus on at least one object. It is very diffic
 
 ### Commands
 
-Use the `deeplabv3_resnet50` pretrained model provided [here](https://github.com/VainF/DeepLabV3Plus-Pytorch).
+Use the `deeplabv3plus_resnet50` pretrained model provided [here](https://github.com/VainF/DeepLabV3Plus-Pytorch).
 
 `CUDA_VISIBLE_DEVICES=0,1 OMP_NUM_THREADS=4 python -m torch.distributed.launch --master_port 9842 --nproc_per_node=2 train.py --id s2m --load_deeplab <path_to_deeplab.pth>`
 
