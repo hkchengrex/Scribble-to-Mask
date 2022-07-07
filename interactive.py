@@ -49,9 +49,13 @@ class InteractiveManager:
         if not self.pressed:
             return
         if self.positive_mode:
-            cv2.line(self.p_srb, (self.last_ex, self.last_ey), (ex, ey), (1), thickness=3)
+            cv2.line(
+                self.p_srb, (self.last_ex, self.last_ey), (ex, ey), (1), thickness=3
+            )
         else:
-            cv2.line(self.n_srb, (self.last_ex, self.last_ey), (ex, ey), (1), thickness=3)
+            cv2.line(
+                self.n_srb, (self.last_ex, self.last_ey), (ex, ey), (1), thickness=3
+            )
         self.need_update = True
         self.last_ex = ex
         self.last_ey = ey
@@ -72,12 +76,12 @@ class InteractiveManager:
 
         # We don't overwrite current mask until commit
         self.last_mask = mask
-        np_mask = (mask.detach().cpu().numpy()[0,0] * 255).astype(np.uint8)
+        np_mask = (mask.detach().cpu().numpy()[0, 0] * 255).astype(np.uint8)
 
-        if self.pad[2]+self.pad[3] > 0:
-            np_mask = np_mask[self.pad[2]:-self.pad[3],:]
-        if self.pad[0]+self.pad[1] > 0:
-            np_mask = np_mask[:,self.pad[0]:-self.pad[1]]
+        if self.pad[2] + self.pad[3] > 0:
+            np_mask = np_mask[self.pad[2] : -self.pad[3], :]
+        if self.pad[0] + self.pad[1] > 0:
+            np_mask = np_mask[:, self.pad[0] : -self.pad[1]]
 
         return np_mask
 
@@ -94,11 +98,10 @@ class InteractiveManager:
         self.last_mask = None
 
 
-
 parser = ArgumentParser()
-parser.add_argument('--image', default='ust_cat.jpg')
-parser.add_argument('--model', default='saves/s2m.pth')
-parser.add_argument('--mask', default=None)
+parser.add_argument("--image", default="ust_cat.jpg")
+parser.add_argument("--model", default="saves/s2m.pth")
+parser.add_argument("--mask", default=None)
 args = parser.parse_args()
 
 # network stuff
@@ -117,6 +120,7 @@ else:
 
 manager = InteractiveManager(net, image, mask)
 
+
 def mouse_callback(event, x, y, *args):
     if event == cv2.EVENT_LBUTTONDOWN:
         manager.mouse_down(x, y)
@@ -125,37 +129,41 @@ def mouse_callback(event, x, y, *args):
     elif event == cv2.EVENT_MBUTTONDOWN:
         manager.positive_mode = not manager.positive_mode
         if manager.positive_mode:
-            print('Entering positive scribble mode.')
+            print("Entering positive scribble mode.")
         else:
-            print('Entering negative scribble mode.')
+            print("Entering negative scribble mode.")
 
     # Draw
     if event == cv2.EVENT_MOUSEMOVE:
         manager.mouse_move(x, y)
 
+
 def comp_image(image, mask, p_srb, n_srb):
     color_mask = np.zeros_like(image, dtype=np.uint8)
-    color_mask[:,:,2] = 1
+    color_mask[:, :, 2] = 1
     if len(mask.shape) == 2:
-        mask = mask[:,:,None]
-    comp = (image*0.5 + color_mask*mask*0.5).astype(np.uint8)
-    comp[p_srb>0.5, :] = np.array([0, 255, 0], dtype=np.uint8)
-    comp[n_srb>0.5, :] = np.array([255, 0, 0], dtype=np.uint8)
+        mask = mask[:, :, None]
+    comp = (image * 0.5 + color_mask * mask * 0.5).astype(np.uint8)
+    comp[p_srb > 0.5, :] = np.array([0, 255, 0], dtype=np.uint8)
+    comp[n_srb > 0.5, :] = np.array([255, 0, 0], dtype=np.uint8)
 
     return comp
 
-# OpenCV setup
-cv2.namedWindow('S2M demo')
-cv2.setMouseCallback('S2M demo', mouse_callback)
 
-print('Usage: python interactive.py --image <image> --model <model> [Optional: --mask initial_mask]')
-print('This GUI is rudimentary; the network is naively designed.')
-print('Mouse Left - Draw scribbles')
-print('Mouse middle key - Switch positive/negative')
-print('Key f - Commit changes, clear scribbles')
-print('Key r - Clear everything')
-print('Key d - Switch between overlay/mask view')
-print('Key s - Save masks into a temporary output folder (./output/)')
+# OpenCV setup
+cv2.namedWindow("S2M demo")
+cv2.setMouseCallback("S2M demo", mouse_callback)
+
+print(
+    "Usage: python interactive.py --image <image> --model <model> [Optional: --mask initial_mask]"
+)
+print("This GUI is rudimentary; the network is naively designed.")
+print("Mouse Left - Draw scribbles")
+print("Mouse middle key - Switch positive/negative")
+print("Key f - Commit changes, clear scribbles")
+print("Key r - Clear everything")
+print("Key d - Switch between overlay/mask view")
+print("Key s - Save masks into a temporary output folder (./output/)")
 
 display_comp = True
 while 1:
@@ -167,20 +175,20 @@ while 1:
             display = np_mask
         manager.need_update = False
 
-    cv2.imshow('S2M demo', display)
+    cv2.imshow("S2M demo", display)
 
     k = cv2.waitKey(1) & 0xFF
-    if k == ord('f'):
+    if k == ord("f"):
         manager.commit()
         manager.need_update = True
-    elif k == ord('s'):
-        print('saved')
-        os.makedirs('output', exist_ok=True)
-        cv2.imwrite('output/%s' % path.basename(args.mask), mask)
-    elif k == ord('d'):
+    elif k == ord("s"):
+        print("saved")
+        os.makedirs("output", exist_ok=True)
+        cv2.imwrite("output/%s" % path.basename(args.mask), mask)
+    elif k == ord("d"):
         display_comp = not display_comp
         manager.need_update = True
-    elif k == ord('r'):
+    elif k == ord("r"):
         manager.clean_up()
         manager.need_update = True
     elif k == 27:
