@@ -134,17 +134,21 @@ else:
 manager = InteractiveManager(net, image, mask)
 
 
+def switch_mode():
+    manager.positive_mode = not manager.positive_mode
+    if manager.positive_mode:
+        print("Entering positive scribble mode.")
+    else:
+        print("Entering negative scribble mode.")
+
+
 def mouse_callback(event, x, y, *args):
     if event == cv2.EVENT_LBUTTONDOWN:
         manager.mouse_down(x, y)
     elif event == cv2.EVENT_LBUTTONUP:
         manager.mouse_up()
     elif event == cv2.EVENT_MBUTTONDOWN:
-        manager.positive_mode = not manager.positive_mode
-        if manager.positive_mode:
-            print("Entering positive scribble mode.")
-        else:
-            print("Entering negative scribble mode.")
+        switch_mode()
 
     # Draw
     if event == cv2.EVENT_MOUSEMOVE:
@@ -172,7 +176,7 @@ print(
 )
 print("This GUI is rudimentary; the network is naively designed.")
 print("Mouse Left - Draw scribbles")
-print("Mouse middle key - Switch positive/negative")
+print("Key m or Mouse middle key - Switch positive/negative")
 print("Key f - Commit changes, clear scribbles")
 print("Key r - Clear everything")
 print("Key d - Switch between overlay/mask view")
@@ -204,6 +208,8 @@ while 1:
     elif k == ord("r"):
         manager.clean_up()
         manager.need_update = True
+    elif k == ord("m"):
+        switch_mode()
     elif k == 27:
         break
 
