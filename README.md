@@ -10,16 +10,16 @@ A simplistic network that turns scribbles to mask. It supports multi-object segm
 
 ## Overall structure and capabilities
 
-| | [MiVOS](https://github.com/hkchengrex/MiVOS) | [Mask-Propagation](https://github.com/hkchengrex/Mask-Propagation)| [Scribble-to-Mask](https://github.com/hkchengrex/Scribble-to-Mask)  |
-| ------------- |:-------------:|:-----:|:-----:|
-| DAVIS/YouTube semi-supervised evaluation | :x: | :heavy_check_mark: | :x: |
-| DAVIS interactive evaluation | :heavy_check_mark: | :x: | :x: |
-| User interaction GUI tool | :heavy_check_mark: | :x: | :x: |
-| Dense Correspondences | :x: | :heavy_check_mark: | :x: |
-| Train propagation module | :x: | :heavy_check_mark: | :x: |
-| Train S2M (interaction) module | :x: | :x: | :heavy_check_mark: |
-| Train fusion module | :heavy_check_mark: | :x: | :x: |
-| Generate more synthetic data | :heavy_check_mark: | :x: | :x: |
+|                                          | [MiVOS](https://github.com/hkchengrex/MiVOS) | [Mask-Propagation](https://github.com/hkchengrex/Mask-Propagation) | [Scribble-to-Mask](https://github.com/hkchengrex/Scribble-to-Mask) |
+| ---------------------------------------- | :------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: |
+| DAVIS/YouTube semi-supervised evaluation |                     :x:                      |                         :heavy_check_mark:                         |                                :x:                                 |
+| DAVIS interactive evaluation             |              :heavy_check_mark:              |                                :x:                                 |                                :x:                                 |
+| User interaction GUI tool                |              :heavy_check_mark:              |                                :x:                                 |                                :x:                                 |
+| Dense Correspondences                    |                     :x:                      |                         :heavy_check_mark:                         |                                :x:                                 |
+| Train propagation module                 |                     :x:                      |                         :heavy_check_mark:                         |                                :x:                                 |
+| Train S2M (interaction) module           |                     :x:                      |                                :x:                                 |                         :heavy_check_mark:                         |
+| Train fusion module                      |              :heavy_check_mark:              |                                :x:                                 |                                :x:                                 |
+| Generate more synthetic data             |              :heavy_check_mark:              |                                :x:                                 |                                :x:                                 |
 
 ## Requirements
 
@@ -45,6 +45,14 @@ Refer to the official [PyTorch guide](<https://pytorch.org/>) for installing PyT
 ## Interactive GUI
 
 `python interactive.py --image <image>`
+
+You can use with `cpu` only by providing 
+
+`python interactive.py --cpu True --image <image>`
+
+To run inside `pipenv` virtual env
+
+`pipenv run python interactive.py --cpu True --image <image>`
 
 Controls:
 
