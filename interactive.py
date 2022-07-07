@@ -168,7 +168,7 @@ cv2.namedWindow("S2M demo")
 cv2.setMouseCallback("S2M demo", mouse_callback)
 
 print(
-    "Usage: python interactive.py --image <image> --model <model> [Optional: --mask initial_mask]"
+    "Usage: python interactive.py --image <image> --model <model> [Optional: --mask initial_mask --cpu True]"
 )
 print("This GUI is rudimentary; the network is naively designed.")
 print("Mouse Left - Draw scribbles")

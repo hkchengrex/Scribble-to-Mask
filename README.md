@@ -50,6 +50,10 @@ You can use with `cpu` only by providing
 
 `python interactive.py --cpu True --image <image>`
 
+To run inside `pipenv` virtual env
+
+`pipenv run python interactive.py --cpu True --image <image>`
+
 Controls:
 
 ```bash
