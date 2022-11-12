@@ -176,7 +176,7 @@ while 1:
     elif k == ord('s'):
         print('saved')
         os.makedirs('output', exist_ok=True)
-        cv2.imwrite('output/%s' % path.basename(args.mask), mask)
+        cv2.imwrite('output/mask.png', mask)
     elif k == ord('d'):
         display_comp = not display_comp
         manager.need_update = True
